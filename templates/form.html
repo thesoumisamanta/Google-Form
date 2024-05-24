@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google-Like Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<style>
+    #preview {
+        display: none;
+        max-width: 100px;
+        margin-top: 10px;
+    }
+    .flash-message {
+        background-color: #00ff00; /* Green color for success messages */
+        border: 1px solid #008000; /* Dark green border */
+        color: #008000; /* Dark green text color */
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<body>
+    
+    <div class="container">
+        {% with messages=get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-message">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+        <form action="/" method="post" class="form">
+            
+            <img src="{{ url_for('static', filename='bg.jpg')}}" alt="">
+            <h1 class="form-title">Welcome to Tss World</h1>
+            <p class="form-para">Enter Your Details to get in touch with me</p>
+            <div class="form-group">
+                <label for="name">Your Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Mail Id<span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter your mail">
+            </div>
+            <div class="form-group">
+                <label for="phone">your Phone No<span class="required">*</span></label>
+                <input type="text" id="phone" name="phone" placeholder="Enter Your Phone No" >
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender<span class="required">*</span></label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">Your Address<span class="required">*</span></label>
+                <textarea rows="5" cols="40" name="address" id="address" name="address"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="github">Github Link<span class="required">*</span></label>
+                <input type="url" name="github" id="github" placeholder="Enter the link">
+            </div>
+            <div class="form-group">
+                <label for="cv">Upload Your CV<span class="required">*</span></label>
+                <input type="file" src="" alt="" id="cv" name="cv">
+            </div>
+            <div class="form-group">
+                <label for="image">Upload your image<span class="required">*</span></label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <br>
+                <img id="preview" alt="Image Preview">
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
